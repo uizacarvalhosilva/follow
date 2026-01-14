@@ -16,49 +16,63 @@ struct ProfileView: View {
     var body: some View {
         
         VStack {
-            
-            //Perfil
-            Image(viewModel.user.picture)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 250, height: 250)
-                .clipShape(Circle())
-                .shadow(radius: 30)
-
-            Text(viewModel.user.name)
-                .font(.system(size: 50, weight: .bold))
-            
-            Text(viewModel.user.nick)
-                .font(.system(size: 23, weight: .regular))
-                .foregroundStyle(Color.gray)
-            
-            Text(viewModel.userFollowers)
-                .font(.system(size: 80,weight: .light))
-                .padding(40)
-            
-            VStack{
-                //Seguir
-                Button{viewModel.toggleFollow()} label: {
-                    Label(!viewModel.isFollowing ? "Follow" : "Unfollow",systemImage: "heart.fill")
-                        .font(.title3)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .tint(!viewModel.isFollowing ? .blue : .black)
-                
-                //Enviar mensagem
-                Button{} label: {
-                    Label("Send message",systemImage:"ellipsis.message.fill")
-                        .font(.title3)
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .disabled(!viewModel.isFollowing)
-            }
-            .padding(20)
+            ProfileDataView(viewModel: $viewModel)
+            ActionView(viewModel: $viewModel)
         }
+    }
+}
+
+struct ProfileDataView: View {
+    @Binding var viewModel: ProfileViewModel
+    
+    var body: some View {
+        //Perfil
+        Image(viewModel.user.picture)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 250, height: 250)
+            .clipShape(Circle())
+            .shadow(radius: 30)
+
+        Text(viewModel.user.name)
+            .font(.system(size: 50, weight: .bold))
+        
+        Text(viewModel.user.nick)
+            .font(.system(size: 23, weight: .regular))
+            .foregroundStyle(Color.gray)
+        
+        Text(viewModel.userFollowers)
+            .font(.system(size: 80,weight: .light))
+            .padding(40)
+    }
+}
+
+struct ActionView: View {
+    @Binding var viewModel: ProfileViewModel
+    
+    var body: some View {
+        VStack{
+            //Seguir
+            Button{viewModel.toggleFollow()} label: {
+                Label(!viewModel.isFollowing ? "Follow" : "Unfollow",systemImage: "heart.fill")
+                    .font(.title3)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .tint(!viewModel.isFollowing ? .blue : .black)
+            
+            //Enviar mensagem
+            Button{} label: {
+                Label("Send message",systemImage:"ellipsis.message.fill")
+                    .font(.title3)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .disabled(!viewModel.isFollowing)
+        }
+        .padding(20)
     }
 }
 
