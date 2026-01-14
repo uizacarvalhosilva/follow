@@ -11,19 +11,19 @@ import SwiftUI
 struct ProfileView: View {
     
     // O state na frente de uma propriedade, criamos uma fonte da verdade. Quando é detectado que houve alteração no body a atualizaçao da propriedade é realizada, forcando que a view seja reconstruída automaticamente. Ele detecta se será feito em um trecho específico ou se é em toda view (muito bom)
-    @State var viewModel = ProfileViewModel()
+    @StateObject var viewModel = ProfileViewModel()
     
     var body: some View {
         
         VStack {
-            ProfileDataView(viewModel: $viewModel)
-            ActionView(viewModel: $viewModel)
+            ProfileDataView(viewModel: viewModel)
+            ActionView(viewModel: viewModel)
         }
     }
 }
 
 struct ProfileDataView: View {
-    @Binding var viewModel: ProfileViewModel
+    @ObservedObject var viewModel: ProfileViewModel
     
     var body: some View {
         //Perfil
@@ -48,7 +48,7 @@ struct ProfileDataView: View {
 }
 
 struct ActionView: View {
-    @Binding var viewModel: ProfileViewModel
+    @ObservedObject var viewModel: ProfileViewModel
     
     var body: some View {
         VStack{

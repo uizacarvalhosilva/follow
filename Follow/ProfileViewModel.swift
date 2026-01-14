@@ -5,12 +5,13 @@
 //  Created by Uíza Carvalho on 14/01/26.
 //
 import Foundation
+import Combine
 
 //CAMADA VIEW MODEL
-struct ProfileViewModel{
+class ProfileViewModel: ObservableObject{
     
-    var isFollowing: Bool = false
-    var userFollowers = String()
+    @Published var isFollowing: Bool = false
+    @Published var userFollowers = String()
 
     var user = User(picture: "pexels",
             name:"Zaiu Wahl",
@@ -21,7 +22,7 @@ struct ProfileViewModel{
         loadFollowers()
     }
     
-    mutating func loadFollowers(){
+    func loadFollowers(){
         self.userFollowers = followersFormatted(value: user.followers)
     }
     
@@ -33,7 +34,7 @@ struct ProfileViewModel{
         return "\(shorten)K"
     }
         
-    mutating func toggleFollow(){
+    func toggleFollow(){
         self.isFollowing.toggle()
         self.isFollowing ? (self.user.followers += 1) : (self.user.followers -= 1)
         loadFollowers()
