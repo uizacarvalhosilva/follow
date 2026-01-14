@@ -16,14 +16,17 @@ struct ProfileView: View {
     var body: some View {
         
         VStack {
-            ProfileDataView(viewModel: viewModel)
-            ActionView(viewModel: viewModel)
+            ProfileDataView()
+            ActionView()
         }
+        .environmentObject(viewModel)
+        //aqui as submodels terão livre acesso a source of true
     }
 }
 
 struct ProfileDataView: View {
-    @ObservedObject var viewModel: ProfileViewModel
+    //com o uso do ambiente, não precisa ficar passando o valor toda vez que a view é exibida
+    @EnvironmentObject var viewModel: ProfileViewModel
     
     var body: some View {
         //Perfil
@@ -48,7 +51,7 @@ struct ProfileDataView: View {
 }
 
 struct ActionView: View {
-    @ObservedObject var viewModel: ProfileViewModel
+    @EnvironmentObject var viewModel: ProfileViewModel
     
     var body: some View {
         VStack{
