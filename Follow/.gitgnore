@@ -1,0 +1,12 @@
+# Xcode
+DerivedData/
+*.xcuserstate
+xcuserdata/
+bookmarks.plist
+
+# Swift Package / Xcode build
+.build/
+Pods/
+
+# macOS
+.DS_Store
